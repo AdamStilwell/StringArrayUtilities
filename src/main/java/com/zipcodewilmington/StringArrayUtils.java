@@ -93,7 +93,12 @@ public class StringArrayUtils {
      * @return number of occurrences the specified `value` has occurred
      */ // TODO
     public static int getNumberOfOccurrences(String[] array, String value) {
-        return 0;
+        int count = 0;
+        for(int i = 0; i<array.length; i++ )
+            if(array[i].toString().equals(value)){
+               count++;
+            }
+        return count;
     }
 
     /**
@@ -102,7 +107,16 @@ public class StringArrayUtils {
      * @return array with identical contents excluding values of `value`
      */ // TODO
     public static String[] removeValue(String[] array, String valueToRemove) {
-        return null;
+        getNumberOfOccurrences(array, valueToRemove);
+        int count = 0;
+        String alteredArray[] = new String[array.length - getNumberOfOccurrences(array, valueToRemove)];
+        for (int i = 0; i < array.length; i++) {
+            if (!array[i].toString().equals(valueToRemove)) {
+                alteredArray[count] = array[i].toString();
+                count++;
+            }
+        }
+        return alteredArray;
     }
 
     /**
