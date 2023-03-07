@@ -84,7 +84,20 @@ public class StringArrayUtils {
      * @return true if each letter in the alphabet has been used in the array
      */ // TODO
     public static boolean isPangramic(String[] array) {
-        return false;
+//      boolean isPangramic = false;
+        StringBuilder sb = new StringBuilder();
+//        //create a string builder with all the strings in one place
+        for(int i =0; i <array.length; i++) {
+            sb.append(array[i].toString().toLowerCase());
+        }
+//        //check to see if the string has all the letters of the alphabet
+//        for(int i = 0; i<sb.toString().length();i++){
+//
+//        }
+        return sb.toString()
+                .replaceAll("[^a-z]", "")
+                .replaceAll("(.)(?=.*\\1)", "")
+                .length() == 26;
     }
 
     /**
@@ -124,7 +137,35 @@ public class StringArrayUtils {
      * @return array of Strings with consecutive duplicates removes
      */ // TODO
     public static String[] removeConsecutiveDuplicates(String[] array) {
-        return null;
+        int count = 0;
+        int count1 = 0;
+        for(int i = 0; i < array.length; i++) {
+            //if end of the array, there is no next to compare to
+            if (i == array.length-1) {
+                break;
+            } else {
+            //compare the first value to the next value in the array
+            if (array[i].toString().equals(array[i + 1].toString())) {
+                //remove the value
+                count++;
+                }
+            }
+        }
+        String alteredArray[] = new String[array.length-count];
+        for(int j = 0; j < array.length; j++){
+            //if end of the array, there is no next to compare to
+            if(j == array.length -1){
+                alteredArray[count1] = array[j].toString();
+            }else{
+                //compare the first value to the next value in the array
+                if(!array[j].toString().equals(array[j+1].toString())){
+                    //remove the value
+                    alteredArray[count1] = array[j].toString();
+                    count1++;
+                }
+            }
+        }
+        return alteredArray;
     }
 
     /**
