@@ -1,5 +1,9 @@
 package com.zipcodewilmington;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
+
 /**
  * Created by leon on 1/29/18.
  */
@@ -9,7 +13,7 @@ public class StringArrayUtils {
      * @return first element of specified array
      */ // TODO
     public static String getFirstElement(String[] array) {
-        return array[0].toString();
+        return array[0];
     }
 
     /**
@@ -17,7 +21,7 @@ public class StringArrayUtils {
      * @return second element in specified array
      */
     public static String getSecondElement(String[] array) {
-        return array[1].toString();
+        return array[1];
     }
 
     /**
@@ -45,7 +49,7 @@ public class StringArrayUtils {
      */ // TODO
     public static boolean contains(String[] array, String value) {
         for(int i = 0; i<array.length; i++ )
-            if(array[i].toString().equals(value)){
+            if(array[i].equals(value)){
                 return true;
             }
         return false;
@@ -59,7 +63,7 @@ public class StringArrayUtils {
         String reverse[] = new String[array.length];
         int pos = (array.length -1);
         for(int i =0; i < array.length; i++){
-            reverse[pos] = array[i].toString();
+            reverse[pos] = array[i];
             pos--;
         }
         return reverse;
@@ -72,7 +76,7 @@ public class StringArrayUtils {
     public static boolean isPalindromic(String[] array) {
         boolean isPalindromic = false;
         for(int i = 0; i<array.length; i++) {
-            if(array[i].toString().equals(reverse(array)[i].toString())){
+            if(array[i].equals(reverse(array)[i])){
                 isPalindromic = true;
             }
         }
@@ -84,20 +88,11 @@ public class StringArrayUtils {
      * @return true if each letter in the alphabet has been used in the array
      */ // TODO
     public static boolean isPangramic(String[] array) {
-//      boolean isPangramic = false;
         StringBuilder sb = new StringBuilder();
-//        //create a string builder with all the strings in one place
         for(int i =0; i <array.length; i++) {
-            sb.append(array[i].toString().toLowerCase());
+            sb.append(array[i].toLowerCase());
         }
-//        //check to see if the string has all the letters of the alphabet
-//        for(int i = 0; i<sb.toString().length();i++){
-//
-//        }
-        return sb.toString()
-                .replaceAll("[^a-z]", "")
-                .replaceAll("(.)(?=.*\\1)", "")
-                .length() == 26;
+        return sb.toString().replaceAll("[^a-z]", "").replaceAll("(.)(?=.*\\1)", "").length() == 26;
     }
 
     /**
@@ -108,7 +103,7 @@ public class StringArrayUtils {
     public static int getNumberOfOccurrences(String[] array, String value) {
         int count = 0;
         for(int i = 0; i<array.length; i++ )
-            if(array[i].toString().equals(value)){
+            if(array[i].equals(value)){
                count++;
             }
         return count;
@@ -124,8 +119,8 @@ public class StringArrayUtils {
         int count = 0;
         String alteredArray[] = new String[array.length - getNumberOfOccurrences(array, valueToRemove)];
         for (int i = 0; i < array.length; i++) {
-            if (!array[i].toString().equals(valueToRemove)) {
-                alteredArray[count] = array[i].toString();
+            if (!array[i].equals(valueToRemove)) {
+                alteredArray[count] = array[i];
                 count++;
             }
         }
@@ -145,22 +140,21 @@ public class StringArrayUtils {
                 break;
             } else {
             //compare the first value to the next value in the array
-            if (array[i].toString().equals(array[i + 1].toString())) {
-                //remove the value
+            if (array[i].equals(array[i + 1])) {
                 count++;
                 }
             }
         }
-        String alteredArray[] = new String[array.length-count];
+        String[] alteredArray = new String[array.length-count];
         for(int j = 0; j < array.length; j++){
             //if end of the array, there is no next to compare to
             if(j == array.length -1){
-                alteredArray[count1] = array[j].toString();
+                alteredArray[count1] = array[j];
             }else{
                 //compare the first value to the next value in the array
-                if(!array[j].toString().equals(array[j+1].toString())){
+                if(!array[j].equals(array[j+1])){
                     //remove the value
-                    alteredArray[count1] = array[j].toString();
+                    alteredArray[count1] = array[j];
                     count1++;
                 }
             }
@@ -173,8 +167,36 @@ public class StringArrayUtils {
      * @return array of Strings with each consecutive duplicate occurrence concatenated as a single string in an array of Strings
      */ // TODO
     public static String[] packConsecutiveDuplicates(String[] array) {
-        return null;
-    }
+        StringBuilder sb = new StringBuilder();
+        String[] arrayResult = new String[100];
+        ArrayList<String> arrayList = new ArrayList<>();
 
+        sb.append(array[0]);
+        if(!array[0].equals(array[1])){
+            sb.append(" ");
+        }
+        for(int i = 1; i<array.length; i++){
+            if(i!=array.length-1){
+                if (array[i].equals(array[i+1])) {
+                    sb.append(array[i]);
+                }else {
+                    sb.append(array[i]);
+                    sb.append(" ");
+                }
+            }else{
+                if(array[i].equals(array[i-1])){
+                    sb.append(array[i]);
+                }else{
+                    sb.append(array[i]);
+                }
+            }
+        }
+        arrayResult = sb.toString().split(" ");
+
+        for(int i = 0; i<arrayResult.length; i++){
+            arrayList.add(arrayResult[i]);
+        }
+        return arrayList.toArray(new String[0]);
+    }
 
 }
